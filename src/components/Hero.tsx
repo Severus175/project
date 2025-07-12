@@ -10,12 +10,9 @@ interface HeroProps {
 export default function Hero({ isDark, onNavigateToBlog }: HeroProps) {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* 🌌 Dark Space Background Effects */}
+      {/* Background Effects */}
       <div className="absolute inset-0">
-        {/* Animated cyber grid */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.02)_1px,transparent_1px)] bg-[size:80px_80px] animate-pulse"></div>
-        
-        {/* Floating space orbs - more subtle */}
         <motion.div 
           className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-r from-blue-500/8 to-indigo-500/8 rounded-full blur-3xl"
           animate={{ 
@@ -45,34 +42,9 @@ export default function Hero({ isDark, onNavigateToBlog }: HeroProps) {
             delay: 2
           }}
         />
-
-        {/* Matrix-style falling code effect */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-blue-400/15 text-xs font-mono"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: '-10px'
-              }}
-              animate={{
-                y: ['0vh', '110vh']
-              }}
-              transition={{
-                duration: Math.random() * 4 + 3,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-                ease: 'linear'
-              }}
-            >
-              {Math.random() > 0.5 ? 'const dev = () => {' : 'function build() {'}
-            </motion.div>
-          ))}
-        </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 py-16 relative z-10">
+      <div className="max-w-5xl mx-auto px-6 py-20 relative z-10">
         <div className="text-center">
           {/* 🚀 Developer Status Badge */}
           <AnimatedSection direction="down">

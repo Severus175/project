@@ -15,14 +15,8 @@ export default function Experience({ isDark }: ExperienceProps) {
   ];
 
   return (
-    <section id="experience" className="py-16 relative overflow-hidden bg-gradient-to-b from-black via-gray-950 to-black">
+    <section id="experience" className="py-20 bg-gray-950">
       {/* Simplified background decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-green-500/8 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl" />
-        {/* Simplified grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-      </div>
       
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Header */}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Home, User, Code, Briefcase, Menu, X } from 'lucide-react';
+import { Home, Code2, FolderOpen, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface NavbarProps {
@@ -11,17 +11,16 @@ export default function Navbar({ isDark }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems = [
-    { id: 'home', label: 'Home', icon: Home, href: '#home' },
-    { id: 'skills', label: 'Skills', icon: Code, href: '#skills' },
-    { id: 'projects', label: 'Projects', icon: User, href: '#projects' },
-    { id: 'experience', label: 'Experience', icon: Briefcase, href: '#experience' },
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'skills', label: 'Skills', icon: Code2 },
+    { id: 'projects', label: 'Projects', icon: FolderOpen },
+    { id: 'experience', label: 'Experience', icon: Briefcase },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       
-      // Update active section based on scroll position
       const sections = ['home', 'skills', 'projects', 'experience'];
       const scrollPosition = window.scrollY + 100;
       
@@ -43,127 +42,99 @@ export default function Navbar({ isDark }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <motion.nav
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-black/90 backdrop-blur-md border border-gray-700/50' 
-          : 'bg-black/60 backdrop-blur-sm border border-gray-600/30'
-      } rounded-2xl px-6 py-3 shadow-2xl`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      {/* Animated background glow */}
-      <div 
-        className="absolute -inset-0.5 rounded-2xl opacity-60 blur-sm"
-        style={{
-          background: 'linear-gradient(45deg, #3b82f6, #06b6d4, #8b5cf6, #3b82f6)',
-          backgroundSize: '400% 400%',
-          animation: 'gradient-shift 6s ease infinite'
-        }}
-      />
-      
-      <div className="relative z-10">
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item, index) => (
-            <motion.button
-              key={item.id}
-              onClick={() => scrollToSection(item.href)}
-              className={`
-                relative flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 group
-                ${activeSection === item.id 
-                  ? 'text-white bg-gradient-to-r from-blue-600/80 to-purple-600/80 shadow-lg' 
-                  : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
-                }
-              `}
+    <>
+      {/* Desktop Navbar */}
+      <motion.nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-gray-900/95 backdrop-blur-xl border-b border-gray-800/50' 
+            : 'bg-transparent'
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <motion.div 
+              className="flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              {/* Active indicator */}
-              {activeSection === item.id && (
-                <motion.div
-                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30"
-                  layoutId="activeTab"
-                  transition={{ duration: 0.3 }}
-                />
-              )}
-              
-              <div className="relative z-10 flex items-center gap-2">
-                <motion.div
-                  animate={{ 
-                    rotate: activeSection === item.id ? 360 : 0,
-                    scale: activeSection === item.id ? 1.1 : 1
-                  }}
-                  transition={{ duration: 0.3 }}
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">S</span>
+              </div>
+              <span className="text-white font-semibold text-lg tracking-tight">Shashwat</span>
+            </motion.div>
+
+            {/* Navigation Items */}
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    activeSection === item.id
+                      ? 'text-white bg-gray-800/80'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800/40'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <item.icon className="w-4 h-4" />
-                </motion.div>
-                <span>{item.label}</span>
-              </div>
-              
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
-            </motion.button>
-          ))}
-        </div>
+                  <span>{item.label}</span>
+                  
+                  {activeSection === item.id && (
+                    <motion.div
+                      className="absolute bottom-0 left-1/2 w-1 h-1 bg-blue-500 rounded-full"
+                      layoutId="activeIndicator"
+                      style={{ x: '-50%' }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
 
-        {/* Mobile Navigation */}
-        <div className="md:hidden flex items-center justify-center">
-          <div className="flex items-center gap-1">
-            {navItems.map((item, index) => (
-              <motion.button
-                key={item.id}
-                onClick={() => scrollToSection(item.href)}
-                className={`
-                  relative p-2.5 rounded-lg transition-all duration-300
-                  ${activeSection === item.id 
-                    ? 'text-white bg-gradient-to-r from-blue-600/80 to-purple-600/80' 
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
-                  }
-                `}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                {/* Active indicator for mobile */}
-                {activeSection === item.id && (
-                  <motion.div
-                    className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30"
-                    layoutId="activeMobileTab"
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-                
-                <div className="relative z-10">
-                  <motion.div
-                    animate={{ 
-                      rotate: activeSection === item.id ? 360 : 0,
-                      scale: activeSection === item.id ? 1.2 : 1
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <item.icon className="w-4 h-4" />
-                  </motion.div>
-                </div>
-              </motion.button>
-            ))}
+            {/* Mobile Navigation */}
+            <div className="md:hidden flex items-center gap-1">
+              {navItems.map((item) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative p-2.5 rounded-lg transition-all duration-200 ${
+                    activeSection === item.id
+                      ? 'text-white bg-gray-800/80'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800/40'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <item.icon className="w-4 h-4" />
+                  
+                  {activeSection === item.id && (
+                    <motion.div
+                      className="absolute bottom-0 left-1/2 w-1 h-1 bg-blue-500 rounded-full"
+                      layoutId="activeMobileIndicator"
+                      style={{ x: '-50%' }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </motion.nav>
+      </motion.nav>
+
+      {/* Spacer for fixed navbar */}
+      <div className="h-16" />
+    </>
   );
 }

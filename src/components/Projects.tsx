@@ -97,14 +97,8 @@ const projects = [
 
 export default function Projects({ isDark }: ProjectsProps) {
   return (
-    <section id="projects" className="py-16 relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <section id="projects" className="py-20 bg-gray-950">
       {/* Space background decorations */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-blue-500/8 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        {/* Tech grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
